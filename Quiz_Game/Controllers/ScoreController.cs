@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quiz_Game.Data;
 using Quiz_Game.Models;
 using Quiz_Game.Models.DTO;
@@ -20,7 +21,15 @@ namespace Quiz_Game.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<AppDatabaseContext>>> getMyScore(int id)
         {
-            Score score = _db.Scores.Find(id);
+            List<Score> data = _db.Scores.Where(x => x.UserId == id).ToList();
+            Score score = new Score();
+            score.ScoreId = data[0].ScoreId;
+            score.UserId = data[0].UserId;
+            score.Learning = data[0].Learning;
+            score.Fair = data[0].Fair;
+            score.Good = data[0].Good;
+            score.Expert = data[0].Expert;
+
             return Ok(score);
         }
 
@@ -172,11 +181,19 @@ namespace Quiz_Game.Controllers
             return Ok(obj);
         }
 
-        [HttpPost("Learning")]
-        public async Task<ActionResult<List<AppDatabaseContext>>> setLearningScore(ScoreLearning obj)
+        [HttpPut]
+        public async Task<ActionResult<List<AppDatabaseContext>>> setLearningScore(Score obj)
         {
-            
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                _db.Scores.Update(obj);
+                await _db.SaveChangesAsync();
+                return Ok(obj);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
