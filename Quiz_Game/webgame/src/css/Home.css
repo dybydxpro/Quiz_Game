@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+.background{
+    background-color: black;
+    min-height: 100vh;
+    
+}
+
+.formbg{
+    margin: 15% 35% 15% 35%;
+    padding: 2% 2% 2% 2%;
+}
+
+.button1{
+    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%)
+}
+
+.button1 {
+    width: 95%;
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+    font-family: 'Gothic';
+}
+
+.button1:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.button88{
+    font-family: 'Edu TAS Beginner', cursive;
+    background-image: linear-gradient(to right, #000428  0%, #004e92  51%, #000428   100%)
+}
+
+.button88 {
+    width: 95%;
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #004e92;
+    border-radius: 10px;
+    display: block;
+    font-family: 'Edu TAS Beginner', cursive;
+}
+
+.button88:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.chart{
+    margin: 3% 20% 3% 20%;
+    padding: 5%;
+
+}
+
+.scoretext{
+    background-color: #045de9; 
+    color: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+    text-shadow: 2px 2px 0px #FFF;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Acme', sans-serif;
+}
+
+.scorevalue{
+    font-family: 'Staatliches', cursive;
+    color: #fff;
+    
+}
+
+.dbscore{
+    font-family: 'Staatliches', cursive;
+    color: #fff;
+
+}
+
+.scoretable{
+    /*background-color: #045de9;*/ 
+    background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+}

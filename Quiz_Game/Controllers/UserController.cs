@@ -46,6 +46,27 @@ namespace Quiz_Game.Controllers
             }
         }
 
+        [HttpGet("Social/{email}")]
+        public async Task<ActionResult<List<AppDatabaseContext>>> SocialLogin(string email)
+        {
+            List<User> users = _db.Users.Where(x => x.Email == email).ToList();
+            if (users.Count == 0)
+            {
+                return NoContent();
+            }
+
+            User usr = new User();
+            usr.UserId = users[0].UserId;
+            usr.Firstname = users[0].Firstname;
+            usr.Lastname = users[0].Lastname;
+            usr.Email = users[0].Email;
+            usr.Password = "";
+            usr.Gender = users[0].Gender;
+            usr.DOB = users[0].DOB;
+
+            return Ok(usr);
+        }
+
         [HttpPost("Register")]
         public async Task<ActionResult<List<AppDatabaseContext>>> Register(User obj)
         {
