@@ -35,8 +35,13 @@ class Service {
         return http.get("/Score/Expert");
     }
 
-    ScoreUpdate() {
-        return http.put("/Score");
+    ScoreUpdate(data) {
+        return http.put("/Score", data);
+    }
+
+    //
+    QuizGet(text){
+        return http.get(`Quiz/${text}`);
     }
 }
 

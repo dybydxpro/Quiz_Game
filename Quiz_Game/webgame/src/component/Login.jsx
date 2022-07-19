@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Service from "../Services";
 import { useNavigate } from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
 import bg from "../image/bg.png";
 
 export default function Login(){
@@ -85,8 +86,21 @@ export default function Login(){
         return dtv;
     }
 
+    //Login
+    const [loginModel, setLoginModel] = useState(false);
+
+    const handleLoginClose = () => setLoginModel(false);
+    const handleLoginShow = () => setLoginModel(true);
+        
+    //Register
+    const [registerModel, setRegisterModel] = useState(false);
+
+    const handleRegisterClose = () => setRegisterModel(false);
+    const handleRegisterShow = () => setRegisterModel(true);
+
+
     return(
-        <div className="row background" >
+        <div className="row background" style={{overflow: "hidden"}}>
             <div className="bg-image" style={{ backgroundImage: `url(${bg})`,height:'100vh', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
                 <div className="col">
                     <div className="formbg shadow bg-dark rounded-3">
@@ -94,76 +108,70 @@ export default function Login(){
                         <br/>
                         <div className="form-floating mb-3">
                             {/* Login Form */}
-                            <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex="-1">
-                                <div className="modal-dialog modal-dialog-centered">
-                                    <div className="modal-content">
-                                        <div className="modal-header justify-content-center">
-                                            <h5 className="modal-title" id="exampleModalToggleLabel">Login</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <Modal show={loginModel} onHide={() => setLoginModel(false)} aria-labelledby="contained-modal-title-vcenter" centered>
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="">
+                                        <div className="form-floating mb-3">
+                                            <input type="text" className="form-control" id="email" onChange={(e) =>loginHandle(e)} placeholder="Email" required/>
+                                            <label htmlFor="email">Email</label>
                                         </div>
-                                        <div className="modal-body">
-                                            <div className="form-floating mb-3">
-                                                <input type="text" className="form-control" id="email" onChange={(e) =>loginHandle(e)} placeholder="Email" required/>
-                                                <label htmlFor="email">Email</label>
-                                            </div>
-                                            <div className="form-floating mb-3">
-                                                <input type="password" className="form-control" id="password" onChange={(e) =>loginHandle(e)} placeholder="Password" required/>
-                                                <label htmlFor="password">Password</label>
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                <button className="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Register</button>
-                                                <button className="btn btn-primary" onClick={ () => loginFunc()}>Login</button>
-                                            </div>
+                                        <div className="form-floating mb-3">
+                                            <input type="password" className="form-control" id="password" onChange={(e) =>loginHandle(e)} placeholder="Password" required/>
+                                            <label htmlFor="password">Password</label>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={ () => {handleLoginClose(); handleRegisterShow();}}>Register</Button>
+                                    <Button onClick={ () => {loginFunc(); handleLoginClose();}}>Login</Button>
+                                </Modal.Footer>
+                            </Modal>
                             { /* Registation Form */ }
-                            <div className="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
-                                <div className="modal-dialog modal-dialog-centered">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalToggleLabel2">Register</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <Modal show={registerModel} onHide={() => setRegisterModel(false)} aria-labelledby="contained-modal-title-vcenter" centered>
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="contained-modal-title-vcenter">Register</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="">
+                                        <div className="form-floating mb-3">
+                                            <input type="text" className="form-control" onChange={(e) =>registerHandle(e)} id="firstname" placeholder="First Name" required/>
+                                            <label htmlFor="firstname">First Name</label>
                                         </div>
-                                        <div className="modal-body">
-                                            <div className="form-floating mb-3">
-                                                <input type="text" className="form-control" onChange={(e) =>registerHandle(e)} id="firstname" placeholder="First Name" required/>
-                                                <label htmlFor="firstname">First Name</label>
-                                            </div>
-                                            <div className="form-floating mb-3">
-                                                <input type="text" className="form-control" onChange={(e) =>registerHandle(e)} id="lastname" placeholder="Last Name" required/>
-                                                <label htmlFor="lastname">Last Name</label>
-                                            </div>
-                                            <div className="form-floating mb-3">
-                                                <input type="text" className="form-control" onChange={(e) =>registerHandle(e)} id="email" placeholder="Email" required/>
-                                                <label htmlFor="email">Email</label>
-                                            </div>
-                                            <div className="form-floating mb-3">
-                                                <input type="password" className="form-control" onChange={(e) =>registerHandle(e)} id="password" placeholder="Password" required/>
-                                                <label htmlFor="password">Password</label>
-                                            </div>
-                                            <div className="form-floating mb-3">
-                                                <select className="form-select form-select" id="gender" onChange={(e) => registerHandle(e)}  aria-label=".form-select-sm example">
-                                                    <option value="">Select one</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                </select>
-                                                <label htmlFor="gender" className="form-label">Gender</label>
-                                            </div>
-                                            <div className="form-floating mb-3">
-                                                <input type="date" className="form-control" id="dob" onChange={(e) =>registerHandle(e)} placeholder="Birthday" required/>
-                                                <label htmlFor="dob">Birthday</label>
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                <button className="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Login</button>
-                                                <button className="btn btn-primary" onClick={() => registerFunc()}>Register</button>
-                                            </div>
+                                        <div className="form-floating mb-3">
+                                            <input type="text" className="form-control" onChange={(e) =>registerHandle(e)} id="lastname" placeholder="Last Name" required/>
+                                            <label htmlFor="lastname">Last Name</label>
+                                        </div>
+                                        <div className="form-floating mb-3">
+                                            <input type="text" className="form-control" onChange={(e) =>registerHandle(e)} id="email" placeholder="Email" required/>
+                                            <label htmlFor="email">Email</label>
+                                        </div>
+                                        <div className="form-floating mb-3">
+                                            <input type="password" className="form-control" onChange={(e) =>registerHandle(e)} id="password" placeholder="Password" required/>
+                                            <label htmlFor="password">Password</label>
+                                        </div>
+                                        <div className="form-floating mb-3">
+                                            <select className="form-select form-select" id="gender" onChange={(e) => registerHandle(e)}  aria-label=".form-select-sm example">
+                                                <option value="">Select one</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <label htmlFor="gender" className="form-label">Gender</label>
+                                        </div>
+                                        <div className="form-floating mb-3">
+                                            <input type="date" className="form-control" id="dob" onChange={(e) =>registerHandle(e)} placeholder="Birthday" required/>
+                                            <label htmlFor="dob">Birthday</label>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <input type="button" className="btn button1" data-bs-toggle="modal" href="#exampleModalToggle" value="Start"/>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={ () => {handleRegisterClose(); handleLoginShow();}}>Login</Button>
+                                    <Button onClick={ () => {registerFunc(); handleRegisterClose();}}>Register</Button>
+                                </Modal.Footer>
+                            </Modal>
+                            <input type="button" className="btn button1" onClick={() => handleLoginShow()} value="Start"/>
                         </div>
                     </div>
                 </div>

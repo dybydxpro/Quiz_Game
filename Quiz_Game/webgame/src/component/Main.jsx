@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import bg from "../image/bg.png";
 
 export default function Main(){
+    const navigate = useNavigate();
+    useEffect(() => {
+        
+
+        if(!(Number(sessionStorage.getItem("userID")) > 0)){
+            alert("Please login to the system!");
+            navigate("/");
+        }
+    },[]);
+
     function gameLearning(){
-        sessionStorage.setItem("qID", 1);
         sessionStorage.setItem("Time", 100);
         sessionStorage.setItem("score", 0);
         window.location.replace("/gamelearning/loading");
     }
     function gameFair(){
-        sessionStorage.setItem("qID", 11);
         sessionStorage.setItem("score", 0);
         window.location.replace("/gamelearning/loading");
     }
     function gameGood(){
-        sessionStorage.setItem("qID", 21);
         sessionStorage.setItem("score", 0);
         window.location.replace("/gamelearning/loading");
     }
 
     function gameExpert(){
-        sessionStorage.setItem("qID", 31);
         sessionStorage.setItem("score", 0);
         window.location.replace("/gamelearning/loading");
     }

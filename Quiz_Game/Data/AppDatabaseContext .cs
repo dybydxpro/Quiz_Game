@@ -12,5 +12,6 @@ namespace Quiz_Game.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Score> Scores { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
     }
 }
