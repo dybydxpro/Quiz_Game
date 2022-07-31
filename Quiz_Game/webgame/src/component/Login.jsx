@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Service from "../Services";
 import { useNavigate } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
+import GLogin from './GLogin';
+import FLogin from './FBLogin';
+import { gapi } from 'gapi-script';
 import bg from "../image/bg.png";
+
+const clientId = "581086915737-vromsvj2jkfogiq34kkdg1ev98ukrr1d.apps.googleusercontent.com";
 
 export default function Login(){
     const navigate = useNavigate();
@@ -19,6 +24,17 @@ export default function Login(){
         "gender": "",
         "dob": ""
     });
+
+    useEffect(() => {
+        function googleAPI(){
+            gapi.client.init({
+                client: clientId,
+                scope: ""
+            })
+        };
+
+        gapi.load('client: auth2', googleAPI);
+    },[])
 
     function loginFunc(){
         var reps = ({
@@ -123,10 +139,21 @@ export default function Login(){
                                             <label htmlFor="password">Password</label>
                                         </div>
                                     </div>
+
+                                    <div className="pt-1 mb-4 d-flex justify-content-center">
+                                        <div className="mx-1" style={{ width: "70px", height: "50px"}}>
+                                            <GLogin/>
+                                        </div>
+                                        <div className="mx-1" style={{ width: "70px", height: "50px"}}>
+                                            <FLogin/>
+                                        </div>
+                                    </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Button variant="secondary" onClick={ () => {handleLoginClose(); handleRegisterShow();}}>Register</Button>
-                                    <Button onClick={ () => {loginFunc(); handleLoginClose();}}>Login</Button>
+                                    <div>
+                                        <Button variant="secondary" onClick={ () => {handleLoginClose(); handleRegisterShow();}}>Register</Button> &nbsp;
+                                        <Button onClick={ () => {loginFunc(); handleLoginClose();}}>Login</Button>
+                                    </div>
                                 </Modal.Footer>
                             </Modal>
                             { /* Registation Form */ }
